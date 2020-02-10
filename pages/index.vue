@@ -5,7 +5,8 @@
         Name: {{ character.name }} ID:{{ character.id }}
       </li>
     </ul>
-    <div>Ch: {{ character.name }}</div>
+    <div>Ch: {{ character.name ? character.name : null }}</div>
+    <button @click="charId++">change id</button>
   </div>
 </template>
 
@@ -13,6 +14,16 @@
 import gql from 'graphql-tag'
 
 export default {
+  data() {
+    return {
+      charId: 2
+    }
+  },
+  watch: {
+    charId(newVal) {
+      console.log(newVal)
+    }
+  },
   apollo: {
     characters: gql`
       query getCharacters {
@@ -34,8 +45,8 @@ export default {
           }
         }
       `,
-      variables: {
-        id: 1
+      variables() {
+        return { id: this.charId }
       }
     }
   }
