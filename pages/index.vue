@@ -25,14 +25,19 @@ export default {
         }
       }
     `,
-    character: gql`
-      query getCharacter {
-        character(id: "2") {
-          id
-          name
+    character: {
+      query: gql`
+        query getCharacter($id: ID) {
+          character(id: $id) {
+            id
+            name
+          }
         }
+      `,
+      variables: {
+        id: 1
       }
-    `
+    }
   }
 }
 </script>
